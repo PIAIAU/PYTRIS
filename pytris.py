@@ -12,12 +12,12 @@ width = 10 # Board width
 height = 20 # Board height
 framerate = 30 # Bigger -> Slower
 
-pygame.init()
+pygame.init() # pygame 모듈 생성 
 
-clock = pygame.time.Clock()
-screen = pygame.display.set_mode((300, 374))
-pygame.time.set_timer(pygame.USEREVENT, framerate * 10)
-pygame.display.set_caption("PYTRIS™")
+clock = pygame.time.Clock() # 타임트렉커 생성 
+screen = pygame.display.set_mode((300, 374))  # 창크기 설정 300* 374 
+pygame.time.set_timer(pygame.USEREVENT, framerate * 10) # 유저이벤트 0.3초마다 입력
+pygame.display.set_caption("OPENMIND PYTRIS™")
 
 class ui_variables:
     # Fonts
@@ -65,7 +65,7 @@ class ui_variables:
     t_color = [grey_2, cyan, blue, orange, yellow, green, pink, red, grey_3]
 
 # Draw block
-def draw_block(x, y, color):
+def draw_block(x, y, color): # 블럭 그리는 함수
     pygame.draw.rect(
         screen,
         color,
@@ -92,16 +92,17 @@ def draw_board(next, hold, score, level, goal):
     # Draw next mino
     grid_n = tetrimino.mino_map[next - 1][0]
 
-    for i in range(4):
+    for i in range(4): # 16개의 그리드 칸에서 true인 값만 뽑아서 draw.rect
         for j in range(4):
             dx = 220 + block_size * j
             dy = 140 + block_size * i
             if grid_n[i][j] != 0:
-                pygame.draw.rect(
-                    screen,
-                    ui_variables.t_color[grid_n[i][j]],
-                    Rect(dx, dy, block_size, block_size)
-                )
+                draw_block(dx,dy,ui_variables.t_color[grid_n[i][j]]) # 다음 블럭의 형상 가독성을 높임.
+                #pygame.draw.rect(
+                #    screen,
+                #    ui_variables.t_color[grid_n[i][j]],
+                #    Rect(dx, dy, block_size, block_size)
+                #)
 
     # Draw hold mino
     grid_h = tetrimino.mino_map[hold - 1][0]
